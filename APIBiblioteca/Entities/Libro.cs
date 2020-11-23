@@ -6,11 +6,13 @@ using System.Threading.Tasks;
 
 namespace APIBiblioteca.Entities
 {
-    public class Autor
+    public class Libro
     {
         public int Id { get; set; }
         [Required]
-        public string Nombre { get; set; }
-        public List<Libro> Libros { get; set; }
+        public string Titulo { get; set; }
+        [Required]
+        public int AutorId { get; set; }
+        public Autor Autor { get; set; }
     }
 }
