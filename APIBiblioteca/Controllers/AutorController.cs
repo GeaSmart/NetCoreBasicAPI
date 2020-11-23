@@ -23,13 +23,13 @@ namespace APIBiblioteca.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<Autor>> Get()
         {
-            return context.Autor.ToList();
+            return context.Autor.Include(x=>x.Libros).ToList();
         }
 
         [HttpGet("{id}",Name ="ObtenerAutor")]
         public ActionResult<Autor>Get(int id)
         {
-            var autor = context.Autor.FirstOrDefault(x => x.Id == id);
+            var autor = context.Autor.Include(x=>x.Libros).FirstOrDefault(x => x.Id == id);
             if(autor == null)
             {
                 return NotFound();
@@ -68,7 +68,7 @@ namespace APIBiblioteca.Controllers
             {
                 return NotFound();
             }
-
+            //tambien puede usarse context.Autor.Remove(autor);
             context.Entry(autor).State = EntityState.Deleted;
             context.SaveChanges();
             return autor;
